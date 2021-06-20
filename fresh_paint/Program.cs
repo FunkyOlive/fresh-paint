@@ -8,25 +8,41 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Drawing.Imaging;
 
+
 namespace fresh_paint
 {
     class Program
     {
         static void Main(string[] args)
         {
-            string wallpaperPath = DownloadImageToTempFile("https://static.wixstatic.com/media/d7f4ba_082d76715a4f4ec09d204bd807090337~mv2.jpg/v1/fit/w_1678,h_618,q_90/d7f4ba_082d76715a4f4ec09d204bd807090337~mv2.jpg");            
+            int urlIndex = 3;
+            string url = getUrlFromTxtFile(urlIndex, "D:\\Eigene Dokumente\\SyncMain\\Coding\\beeple backdrop script\\urls.txt");
+            Console.WriteLine("url at index "+urlIndex+" is "+ url);
+
+            string wallpaperPath = DownloadImageToTempBmp(url);            
             Wallpaper.Set(wallpaperPath);
 
             Console.WriteLine("\n\nPress any key to exit...");
             Console.ReadKey();
         }
 
+        /*
+         * opens textfile at param path,
+         * gets line at param index,
+         * and returns the line 
+         */
+        private static string getUrlFromTxtFile(int index, string path)
+        {
+            return System.IO.File.ReadLines(path)
+                .ElementAt(index); ;
+        }
+
         /* downloads image from param url,
          * converts it to .bmp,
          * saves into temp file,
-         * and returns that temp file location.
+         * and returns that temp files location.
          */
-        private static string DownloadImageToTempFile(string url)
+        private static string DownloadImageToTempBmp(string url)
         {
             string TempFilePath = Path.GetTempFileName();
             Console.WriteLine(TempFilePath);
@@ -37,10 +53,7 @@ namespace fresh_paint
 
             Image.FromStream(ms)
                 .Save(TempFilePath, ImageFormat.Bmp);
-
-
-
-
+            
             return TempFilePath;
         }
 

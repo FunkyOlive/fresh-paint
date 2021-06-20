@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using Microsoft.Win32;
 
+//TODO license
 namespace fresh_paint
 {
     public enum WallpaperStyle
