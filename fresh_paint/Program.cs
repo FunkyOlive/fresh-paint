@@ -15,13 +15,17 @@ namespace fresh_paint
     {
         static void Main(string[] args)
         {
-            //TODO read index from args
             //TODO migrate txt => csv
             //TODO write --help documenting args
+            //OR
+            //TODO make interactive cli (later browsing with csv attrs)
 
-            int urlIndex = 3;
-            string url = GetUrlFromTxtFile(urlIndex, "D:\\Eigene Dokumente\\SyncMain\\Coding\\beeple backdrop script\\urls.txt"); //TODO make string to resource
-            Console.WriteLine("url at index "+urlIndex+" is: "+ url);
+            if (!int.TryParse(args[0], out int UrlIndex))
+            {
+                throw new Exception("invalid argument: not an integer.");
+            }
+            string url = GetUrlFromTxtFile(UrlIndex, "D:\\Eigene Dokumente\\SyncMain\\Coding\\beeple backdrop script\\urls.txt"); //TODO make string to resource
+            Console.WriteLine("url at index "+UrlIndex+" is: "+ url);
 
             string wallpaperPath = DownloadImageToTempBmp(url);            
             Wallpaper.Set(wallpaperPath);
