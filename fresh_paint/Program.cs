@@ -15,9 +15,13 @@ namespace fresh_paint
     {
         static void Main(string[] args)
         {
+            //TODO read index from args
+            //TODO migrate txt => csv
+            //TODO write --help documenting args
+
             int urlIndex = 3;
-            string url = getUrlFromTxtFile(urlIndex, "D:\\Eigene Dokumente\\SyncMain\\Coding\\beeple backdrop script\\urls.txt");
-            Console.WriteLine("url at index "+urlIndex+" is "+ url);
+            string url = GetUrlFromTxtFile(urlIndex, "D:\\Eigene Dokumente\\SyncMain\\Coding\\beeple backdrop script\\urls.txt"); //TODO make string to resource
+            Console.WriteLine("url at index "+urlIndex+" is: "+ url);
 
             string wallpaperPath = DownloadImageToTempBmp(url);            
             Wallpaper.Set(wallpaperPath);
@@ -31,8 +35,9 @@ namespace fresh_paint
          * gets line at param index,
          * and returns the line 
          */
-        private static string getUrlFromTxtFile(int index, string path)
+        private static string GetUrlFromTxtFile(int index, string path)
         {
+            //TODO try: sanity check
             return System.IO.File.ReadLines(path)
                 .ElementAt(index); ;
         }
