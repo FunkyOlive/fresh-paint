@@ -21,12 +21,12 @@ namespace fresh_paint
 
             string[] urlList = System.IO.File.ReadAllLines(urlListPath);
             Console.WriteLine("Read input file " + urlListPath);
-            Console.WriteLine("There are " + urlList.Length + " saved image urls");
+            Console.WriteLine("There are " + urlList.LongLength + " saved image urls");
             Console.WriteLine("Enter index of image url to download...");
             int urlIndex;
-            while (!int.TryParse(Console.ReadLine(), out urlIndex))
+            while (!int.TryParse(Console.ReadLine(), out urlIndex) | urlIndex >= urlList.LongLength)
             {
-                Console.WriteLine("Not a valid integer");
+                Console.WriteLine("Not a valid integer or out of bounds.");
                 Console.WriteLine("Enter index of image url to download...");
             }
             string url = urlList[urlIndex];
