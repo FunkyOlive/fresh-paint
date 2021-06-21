@@ -13,38 +13,37 @@ namespace fresh_paint
 {
     class Program
     {
+        private static readonly string urlListPath = "D:\\Eigene Dokumente\\SyncMain\\Coding\\beeple backdrop script\\urls.txt";
+
         static void Main(string[] args)
         {
-            //TODO migrate txt => csv
-            //TODO write --help documenting args
-            //OR
-            //TODO make interactive cli (later browsing with csv attrs)
+            //TODO migrate txt => csv, then browse url attrs in csv
 
-            if (!int.TryParse(args[0], out int UrlIndex))
+            string[] urlList = System.IO.File.ReadAllLines(urlListPath);
+            Console.WriteLine("Read input file " + urlListPath);
+            Console.WriteLine("There are " + urlList.Length + " saved image urls");
+            Console.WriteLine("Enter index of image url to download...");
+            int urlIndex;
+            while (!int.TryParse(Console.ReadLine(), out urlIndex))
             {
-                throw new Exception("invalid argument: not an integer.");
+                Console.WriteLine("Not a valid integer");
+                Console.WriteLine("Enter index of image url to download...");
             }
-            string url = GetUrlFromTxtFile(UrlIndex, "D:\\Eigene Dokumente\\SyncMain\\Coding\\beeple backdrop script\\urls.txt"); //TODO make string to resource
-            Console.WriteLine("url at index "+UrlIndex+" is: "+ url);
+            string url = urlList[urlIndex];
+            Console.WriteLine("Url at index " + urlIndex + " is " + url);
+            Console.WriteLine("Downloading..");
 
-            string wallpaperPath = DownloadImageToTempBmp(url);            
+            string wallpaperPath = DownloadImageToTempBmp(url);
+            Console.WriteLine("Downloaded image to temp file path " + wallpaperPath);
+
+            Console.WriteLine("Setting wallpaper..");
             Wallpaper.Set(wallpaperPath);
 
+            //TODO add key to undo or to jump back in history with Wallpaper.RestoreState()
             Console.WriteLine("\n\nPress any key to exit...");
             Console.ReadKey();
         }
 
-        /*
-         * opens textfile at param path,
-         * gets line at param index,
-         * and returns the line 
-         */
-        private static string GetUrlFromTxtFile(int index, string path)
-        {
-            //TODO try: sanity check
-            return System.IO.File.ReadLines(path)
-                .ElementAt(index); ;
-        }
 
         /* downloads image from param url,
          * converts it to .bmp,
