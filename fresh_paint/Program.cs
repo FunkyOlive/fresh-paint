@@ -13,7 +13,8 @@ namespace fresh_paint
 {
     class Program
     {
-        private static readonly string urlListPath = "D:\\Eigene Dokumente\\SyncMain\\Coding\\beeple backdrop script\\urls.txt";
+        //TODO use installation or user directory
+        private static readonly string urlListPath = "D:\\Documents\\SyncMain\\Coding\\beeple backdrop script\\urls.txt";
 
         static void Main(string[] args)
         {
