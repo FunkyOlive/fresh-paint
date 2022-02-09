@@ -31,6 +31,7 @@ namespace fresh_paint
                 //handling int inputs
                 if (int.TryParse(input, out int urlIndex) && 0 <= urlIndex && urlIndex < urlList.LongLength)
                 {
+                    //TODO refactor: extract
                     string url = urlList[urlIndex];
                     Console.WriteLine("Url at index " + urlIndex + " is:\n" + "\"" + url + "\"");
                     Console.WriteLine("Downloading..");
@@ -51,6 +52,24 @@ namespace fresh_paint
                             //TODO add command to undo or to jump back in history with Wallpaper.RestoreState()
                             //TODO add Wallpaper.style options (tryout live while not touching wp history)
                             break;*/
+                        case "random":
+                            Random rng = new Random();
+                            urlIndex = rng.Next((int)urlList.LongLength);
+
+                            //TODO refactor: extract
+                            string url = urlList[urlIndex];
+                            Console.WriteLine("Url at index " + urlIndex + " is:\n" + "\"" + url + "\"");
+                            Console.WriteLine("Downloading..");
+
+                            string wallpaperPath = DownloadImageToTempBmp(url);
+                            Console.WriteLine("Downloaded image to temp file at: " + wallpaperPath);
+
+                            Console.WriteLine("Setting wallpaper..");
+                            Wallpaper.Set(wallpaperPath);
+                            Console.WriteLine("Success\n");
+
+                            break;
+
                         default:
                             Console.WriteLine("Not a valid integer or out of bounds.");
                             break;
