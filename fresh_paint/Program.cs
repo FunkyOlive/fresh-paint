@@ -1,8 +1,8 @@
 ﻿using System;
-using System.IO;
-using System.Net;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
+using System.Net;
 
 
 namespace fresh_paint
@@ -19,11 +19,12 @@ namespace fresh_paint
             string[] urlList = System.IO.File.ReadAllLines(urlListPath);
 
             Console.WriteLine("fresh_paint by FunkyOlive\n"); //TODO add version hint
+
             Console.WriteLine("Read input file at: " + urlListPath);
             Console.WriteLine("Imported " + urlList.LongLength + " saved image urls.");
 
             //Endless loop to read user input
-            for(; ; )
+            for(;;)
             {
                 Console.WriteLine("Enter index of image url to download...");
                 String input = Console.ReadLine();
@@ -50,7 +51,7 @@ namespace fresh_paint
                     {
                         /*case "new":
                             //TODO add command to undo or to jump back in history with Wallpaper.RestoreState()
-                            //TODO add Wallpaper.style options (tryout live while not touching wp history)
+                            //TODO add Wallpaper.style options (live tryout while not touching wp history)
                             break;*/
                         case "random":
                             Random rng = new Random();
@@ -73,13 +74,9 @@ namespace fresh_paint
                         default:
                             Console.WriteLine("Not a valid integer or out of bounds.");
                             break;
-                    }
-                    
+                    }                    
                 }
-
-
-            }
-            
+            }            
         }
 
 
