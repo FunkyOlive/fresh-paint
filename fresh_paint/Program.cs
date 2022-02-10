@@ -9,22 +9,13 @@ namespace fresh_paint
 {
     class Program
     {
-        //TODO use installation or user directory
-        private static readonly string urlListPath = "D:\\Documents\\SyncMain\\Coding\\beeple backdrop script\\urls.txt";
-
         static void Main(string[] args)
         {
-            //TODO migrate txt => csv, then browse url attrs in csv
-
-            string[] urlList = System.IO.File.ReadAllLines(urlListPath);
-
             Console.WriteLine("fresh_paint by FunkyOlive\n"); //TODO add version hint
-
-            Console.WriteLine("Read input file at: " + urlListPath);
-            Console.WriteLine("Imported " + urlList.LongLength + " saved image urls.");
-
+            string[] urlList = Storage.getUrlList();
+            
             //Endless loop to read user input
-            for(;;)
+            for (;;)
             {
                 Console.WriteLine("Enter index of image url to download...");
                 String input = Console.ReadLine();
