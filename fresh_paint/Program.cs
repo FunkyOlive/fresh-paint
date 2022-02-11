@@ -4,18 +4,17 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Net;
 
-
 namespace fresh_paint
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Console.WriteLine("fresh_paint by FunkyOlive\n"); //TODO add version hint
             string[] urlList = Storage.getUrlList();
-            
+
             //Endless loop to read user input
-            for (;;)
+            for (; ; )
             {
                 Console.WriteLine("Enter index of image url to download...");
                 String input = Console.ReadLine();
@@ -65,17 +64,17 @@ namespace fresh_paint
                         default:
                             Console.WriteLine("Not a valid integer or out of bounds.");
                             break;
-                    }                    
+                    }
                 }
-            }            
+            }
         }
-
 
         /* downloads image from param url,
          * converts it to .bmp,
          * saves into temp file,
          * and returns that temp files location.
          */
+
         private static string DownloadImageToTempBmp(string url)
         {
             //TODO add routine to clean out old temp files if recommended by windows guidelines or sth
@@ -87,11 +86,8 @@ namespace fresh_paint
 
             Image.FromStream(ms)
                 .Save(TempFilePath, ImageFormat.Bmp);
-            
+
             return TempFilePath;
         }
-
-
-    
     }
 }
