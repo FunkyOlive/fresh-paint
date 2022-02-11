@@ -8,10 +8,12 @@ namespace fresh_paint
 {
     internal class Program
     {
+        private static string[] urlList;
+
         private static void Main(string[] args)
         {
             Console.WriteLine("fresh_paint by FunkyOlive\n"); //TODO add version hint
-            string[] urlList = Storage.getUrlList();
+            urlList = Storage.importUrlList();
 
             //Endless loop to read user input
             for (; ; )

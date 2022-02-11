@@ -9,7 +9,7 @@ namespace fresh_paint
 
         private static readonly string urlListPath = "D:\\Documents\\SyncMain\\Coding\\beeple backdrop script\\urls.txt";
 
-        internal static string[] getUrlList()
+        internal static string[] importUrlList()
         {
             string[] urlList = System.IO.File.ReadAllLines(urlListPath);
             Console.WriteLine("Read input file at: " + urlListPath);
