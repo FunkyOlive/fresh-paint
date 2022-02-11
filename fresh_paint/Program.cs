@@ -15,60 +15,52 @@ namespace fresh_paint
             Console.WriteLine("fresh_paint by FunkyOlive\n"); //TODO add version hint
             urlList = Storage.importUrlList();
 
-            //Endless loop to read user input
+            //Input Handling
             for (; ; )
             {
-                Console.WriteLine("Enter index of image url to download...");
+                Console.WriteLine("Enter command or index of image url...");
                 String input = Console.ReadLine();
-
-                //handling int inputs
-                if (int.TryParse(input, out int urlIndex) && 0 <= urlIndex && urlIndex < urlList.LongLength)
+                switch (input)
                 {
-                    //TODO refactor: extract
-                    string url = urlList[urlIndex];
-                    Console.WriteLine("Url at index " + urlIndex + " is:\n" + "\"" + url + "\"");
-                    Console.WriteLine("Downloading..");
+                    case "random":
+                        Random rng = new Random();
+                        int urlIndex = rng.Next((int)urlList.LongLength);
+                        setWallpaper(urlIndex);
+                        break;
 
-                    string wallpaperPath = DownloadImageToTempBmp(url);
-                    Console.WriteLine("Downloaded image to temp file at: " + wallpaperPath);
-
-                    Console.WriteLine("Setting wallpaper..");
-                    Wallpaper.Set(wallpaperPath);
-                    Console.WriteLine("Success\n");
-                }
-                else
-                {
-                    //handling string inputs
-                    switch (input)
-                    {
-                        /*case "new":
-                            //TODO add command to undo or to jump back in history with Wallpaper.RestoreState()
-                            //TODO add Wallpaper.style options (live tryout while not touching wp history)
-                            break;*/
-                        case "random":
-                            Random rng = new Random();
-                            urlIndex = rng.Next((int)urlList.LongLength);
-
-                            //TODO refactor: extract
-                            string url = urlList[urlIndex];
-                            Console.WriteLine("Url at index " + urlIndex + " is:\n" + "\"" + url + "\"");
-                            Console.WriteLine("Downloading..");
-
-                            string wallpaperPath = DownloadImageToTempBmp(url);
-                            Console.WriteLine("Downloaded image to temp file at: " + wallpaperPath);
-
-                            Console.WriteLine("Setting wallpaper..");
-                            Wallpaper.Set(wallpaperPath);
-                            Console.WriteLine("Success\n");
-
+                    default:
+                        if (int.TryParse(input, out urlIndex)
+                            && 0 <= urlIndex && urlIndex < urlList.LongLength)
+                        {
+                            setWallpaper(urlIndex);
                             break;
-
-                        default:
-                            Console.WriteLine("Not a valid integer or out of bounds.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Error: Unknown command or index out of bounds.");
                             break;
-                    }
+                        }
                 }
             }
+        }
+
+        /* retrieves url at param urlIndex out of urlList,
+         * downloads img at url to temp file,
+         * and sets it as wallpaper
+         */
+
+        private static void setWallpaper(int urlIndex)
+        {
+            string url = urlList[urlIndex];
+            Console.WriteLine("Url at index " + urlIndex + " is:\n" + "\"" + url + "\"");
+            Console.WriteLine("Downloading..");
+
+            string wallpaperPath = DownloadImageToTempBmp(url);
+            Console.WriteLine("Downloaded image to temp file at: " + wallpaperPath);
+
+            Console.WriteLine("Setting wallpaper..");
+            Wallpaper.Set(wallpaperPath);
+            Console.WriteLine("Success\n");
         }
 
         /* downloads image from param url,
