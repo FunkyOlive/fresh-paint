@@ -22,6 +22,36 @@ namespace fresh_paint
                 String input = Console.ReadLine();
                 switch (input)
                 {
+                    /* case "undo":
+                     *     //TODO implement undo
+                     *     break;
+                     *
+                     * case "rewind":
+                     *     //TODO implement rewind: jump back in history using Wallpaper.RestoreState()
+                     *     break;
+                     *
+                     * case "import":
+                     *     //TODO import a new url list, with an option to append it to the existing list
+                     *     break;
+                     *
+                     * case "style":
+                     *     //TODO implement Wallpaper.style options (live tryout while not touching wp history)
+                     *     break;
+                     */
+                    case "?":
+                        goto case "help";
+
+                    case "help":
+                        Console.WriteLine("Available commands:\n" +
+                            "[any number] - selects the url at [number] from the imported list, downloads it and sets it as wallpaper\n" +
+                            "random       - selects a random url from the imported list, downloads it and sets it as wallpaper\n" +
+                            "exit         - exits the application\n" +
+                            "? or help    - shows this list of commands\n");
+                        break;
+
+                    case "exit":
+                        return;
+
                     case "random":
                         Random rng = new Random();
                         int urlIndex = rng.Next((int)urlList.LongLength);
